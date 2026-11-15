@@ -1,0 +1,27 @@
+MEENDES FITNESS — PWA v1.0
+
+ARQUIVOS
+- index.html: aplicativo completo (interface, treinos, timer e evolução)
+- manifest.webmanifest: identificação do PWA
+- sw.js: cache/offline básico
+- icon-192.png e icon-512.png: ícones
+
+PUBLICAR
+1. Extraia o ZIP para uma pasta chamada meendes-fitness.
+2. Abra https://app.netlify.com/drop em um computador.
+3. Envie/arraste a pasta extraída (não o ZIP) para a área de publicação.
+4. Aguarde o endereço terminado em netlify.app.
+5. Abra esse endereço no Safari do iPhone.
+
+INSTALAR NO IPHONE
+1. No Safari, abra o endereço publicado.
+2. Toque em Compartilhar.
+3. Escolha Adicionar à Tela de Início.
+4. Ative "Abrir como App da Web", se aparecer.
+5. Toque em Adicionar.
+
+DADOS
+Os registros ficam no armazenamento local do navegador/aplicativo neste aparelho. Não há conta, sincronização na nuvem nem backup automático. Evite limpar os dados do Safari se quiser preservar os registros.
+
+IMPORTANTE
+Este é um protótipo pessoal, não um aplicativo médico. O plano de treino é uma referência geral e deve ser ajustado à sua condição, técnica e orientação profissional.
