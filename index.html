@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -5,154 +6,664 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#101114">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
 <meta name="apple-mobile-web-app-title" content="MEENDES FITNESS">
 <link rel="manifest" href="./manifest.webmanifest">
-<title>MEENDES FITNESS</title>
+<title>MEENDES FITNESS V5</title>
+
 <style>
-:root{--bg:#101114;--panel:#1b1d23;--panel2:#242730;--red:#e32636;--white:#fff;--muted:#a7a9b1;--green:#35c879}
+:root {
+ --bg:#101114;--panel:#1b1d23;--panel2:#252832;
+ --red:#e32636;--white:#fff;--muted:#a7a9b1;--green:#35c879;
+}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--white);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;padding-bottom:92px}
-header{padding:18px 18px 15px;background:#17191e;border-bottom:2px solid var(--red);position:sticky;top:0;z-index:5}
-.brand{font-size:23px;font-weight:900;letter-spacing:1px}.brand span{color:var(--red)}
-.subtitle{color:var(--muted);font-size:11px;margin-top:5px;letter-spacing:1px}
+body{
+ margin:0;background:var(--bg);color:white;
+ font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+ padding-bottom:100px;
+}
+header{
+ padding:20px 18px 15px;background:#17191e;
+ border-bottom:2px solid var(--red);
+}
+.brand{font-size:24px;font-weight:950;letter-spacing:1px}
+.brand span{color:var(--red)}
+.subtitle{font-size:11px;color:var(--muted);margin-top:5px;letter-spacing:1px}
 main{padding:16px;max-width:760px;margin:auto}
-h2{font-size:20px;margin:12px 0}h3{font-size:16px;margin:0 0 10px}p{color:var(--muted);line-height:1.5}
-.card{background:linear-gradient(145deg,#202229,#17191e);border:1px solid #30333c;border-radius:16px;padding:16px;margin-bottom:14px}
-.clock{background:linear-gradient(135deg,#292b32,#17191e);border:1px solid #444;border-left:4px solid var(--red);border-radius:14px;padding:15px;margin:14px 0;text-align:center}
-.clock strong{display:block;color:white;font-size:32px;font-weight:900;letter-spacing:2px}.clock span{display:block;color:#c5c5c5;margin-top:5px;font-size:13px;text-transform:capitalize}
-.statgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.stat{background:var(--panel2);padding:14px;border-radius:12px}.stat b{display:block;color:var(--red);font-size:23px}.stat small{color:var(--muted)}
-button,select,input{font:inherit}button{border:0;border-radius:10px;padding:12px 15px;background:var(--red);color:white;font-weight:800;cursor:pointer}button.secondary{background:#343741}button.green{background:#168c52}button:disabled{opacity:.45}
-input,select{background:#111318;color:white;border:1px solid #454954;border-radius:9px;padding:11px;width:100%;min-width:0}
-label{display:block;color:var(--muted);font-size:12px;margin:8px 0 5px}
-.row{display:flex;gap:8px;align-items:center}.row>*{flex:1}
-.tabs{position:fixed;bottom:0;left:0;right:0;z-index:10;display:grid;grid-template-columns:repeat(5,1fr);background:#191b20;border-top:1px solid #393c44;padding:7px 3px calc(7px + env(safe-area-inset-bottom))}
-.tabs button{background:transparent;color:#aaa;padding:8px 1px;font-size:10px}.tabs button.active{color:white}.tabs button.active span{color:var(--red)}.tabs span{display:block;font-size:19px;margin-bottom:3px}
-.page{display:none}.page.active{display:block}
-.daybutton{display:block;width:100%;text-align:left;margin:7px 0;background:var(--panel2)}.daybutton.selected{background:#70202a}
-.exercise{background:var(--panel2);border-radius:12px;padding:13px;margin:10px 0}.exercise.done{border:1px solid var(--green)}.exercise-title{display:flex;align-items:center;gap:9px;font-weight:800}.exercise-title input{width:20px;height:20px;accent-color:var(--green)}.exercise small{color:var(--muted);display:block;margin:8px 0}.exercise-fields{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-a{color:#ff6874}.progress{height:10px;background:#333640;border-radius:20px;overflow:hidden;margin:10px 0}.progress div{height:100%;background:var(--red);width:0%;transition:width .2s}
-.timer{font-size:54px;font-weight:900;text-align:center;padding:20px 0;font-variant-numeric:tabular-nums}.timer-controls{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.timer-controls button{padding:12px 4px}
-.weight-item{display:flex;justify-content:space-between;padding:11px 0;border-bottom:1px solid #383a42}.muted{color:var(--muted);font-size:12px}
-.music-hero{border-radius:14px;padding:16px;background:linear-gradient(120deg,#202229,#101114);border:1px solid #393c44}
-.spotify-mark{color:#1ed760;font-weight:900;font-size:18px}.playlist-link{display:block;background:#242730;padding:13px;border-radius:11px;margin:9px 0;color:white;text-decoration:none;border:1px solid #383b45}
-.embed-wrap{position:relative;width:100%;margin-top:12px;border-radius:12px;overflow:hidden}.embed-wrap iframe{width:100%;height:352px;border:0}
-.splash{position:fixed;inset:0;z-index:100;background:#08090b;display:flex;align-items:center;justify-content:center;padding:0;transition:opacity .35s}
-.splash img{width:100%;height:100%;object-fit:contain;object-position:center center;display:block;background:#08090b}
-.splash:after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(0,0,0,.82),transparent 38%)}
-.splash button{position:absolute;z-index:2;bottom:calc(35px + env(safe-area-inset-bottom));left:9%;width:82%;padding:16px;font-size:16px;box-shadow:0 5px 24px #000}
-.splash.hidden{opacity:0;pointer-events:none}
+h2{font-size:21px;margin:12px 0}
+h3{font-size:16px;margin:0 0 12px}
+p{color:var(--muted);line-height:1.5}
+.card{
+ background:linear-gradient(145deg,#22242c,#17191e);
+ border:1px solid #343741;border-radius:17px;
+ padding:16px;margin-bottom:14px;
+}
+button,input,select{font:inherit}
+button{
+ border:0;border-radius:10px;padding:12px 15px;
+ background:var(--red);color:white;font-weight:800;
+ cursor:pointer;
+}
+button.secondary{background:#343741}
+button.green{background:#168c52}
+button:disabled{opacity:.5}
+input,select{
+ width:100%;min-width:0;padding:12px;
+ background:#111318;color:white;
+ border:1px solid #454954;border-radius:9px;
+}
+label{display:block;color:var(--muted);font-size:12px;margin:10px 0 5px}
+.row{display:flex;gap:8px;align-items:center}
+.row>*{flex:1}
+.statgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.stat{background:var(--panel2);padding:14px;border-radius:12px}
+.stat b{display:block;color:var(--red);font-size:24px}
+.stat small{color:var(--muted)}
+.clock{
+ background:linear-gradient(135deg,#292b32,#17191e);
+ border:1px solid #444;border-left:4px solid var(--red);
+ border-radius:14px;padding:15px;text-align:center;margin:14px 0;
+}
+.clock strong{display:block;font-size:32px;letter-spacing:2px}
+.clock span{display:block;color:#ccc;margin-top:5px;font-size:13px}
+.progress{height:10px;background:#333640;border-radius:20px;overflow:hidden;margin:10px 0}
+.progress div{height:100%;background:var(--red);width:0%;transition:width .2s}
+.tabs{
+ position:fixed;bottom:0;left:0;right:0;z-index:10;
+ display:grid;grid-template-columns:repeat(6,1fr);
+ background:#191b20;border-top:1px solid #393c44;
+ padding:7px 2px calc(7px + env(safe-area-inset-bottom));
+}
+.tabs button{background:transparent;color:#aaa;padding:8px 1px;font-size:10px}
+.tabs button.active{color:white}
+.tabs button.active span{color:var(--red)}
+.tabs span{display:block;font-size:19px;margin-bottom:4px}
+.page{display:none}
+.page.active{display:block}
+.daybutton{display:block;width:100%;text-align:left;margin:7px 0;background:var(--panel2)}
+.daybutton.selected{background:#70202a}
+.exercise{background:var(--panel2);border-radius:12px;padding:13px;margin:10px 0}
+.exercise.done{border:1px solid var(--green)}
+.exercise-title{display:flex;align-items:center;gap:9px;font-weight:800}
+.exercise-title input{width:20px;height:20px;accent-color:var(--green)}
+.exercise small{display:block;color:var(--muted);margin:8px 0}
+.exercise-fields{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.timer{font-size:54px;font-weight:900;text-align:center;padding:20px 0}
+.timer-controls{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.timer-controls button{padding:12px 3px}
+.weight-item,.food-item{
+ display:flex;justify-content:space-between;align-items:center;
+ gap:10px;padding:12px 0;border-bottom:1px solid #383a42;
+}
+.food-item button{padding:7px 10px;background:#41444d}
+.food-total{
+ background:#191b20;border:1px solid #41444d;
+ border-radius:13px;padding:16px;margin:12px 0;
+}
+.food-total strong{font-size:30px;color:var(--green)}
+.meal-title{color:var(--red);font-weight:900;margin:15px 0 5px}
+.muted{font-size:12px;color:var(--muted)}
+.splash{
+ position:fixed;inset:0;z-index:100;background:#08090b;
+ display:flex;align-items:center;justify-content:center;
+ padding:calc(env(safe-area-inset-top) + 10px) 10px
+ calc(env(safe-area-inset-bottom) + 18px);
+}
+.splash img{width:100%;height:100%;object-fit:contain;object-position:center}
+.splash button{
+ position:absolute;bottom:calc(30px + env(safe-area-inset-bottom));
+ left:9%;width:82%;padding:16px;font-size:16px;
+ box-shadow:0 5px 24px #000;
+}
+.splash.hidden{display:none}
+.spotify{color:#1ed760;font-weight:900}
+.embed iframe{width:100%;height:352px;border:0;border-radius:12px;margin-top:12px}
 .notice{font-size:12px;color:var(--muted);line-height:1.5}
-@media(min-width:600px){.splash img{object-fit:contain}.splash{background:#08090b}}
+@media(max-width:380px){
+ .tabs button{font-size:9px}
+ .tabs span{font-size:17px}
+}
 </style>
 </head>
+
 <body>
+
 <div class="splash" id="splash">
-  <img src="./entrada-meendes.png" alt="Tela de entrada MEENDES FITNESS">
-  <button onclick="enterApp()">ENTRAR NO MEU APP</button>
+ <img src="./entrada-meendes.png" alt="MEENDES FITNESS">
+ <button onclick="enterApp()">ENTRAR NO MEU APP</button>
 </div>
 
 <header>
-  <div class="brand">MEENDES <span>FITNESS</span></div>
-  <div class="subtitle">FOCO • DISCIPLINA • EVOLUÇÃO</div>
+ <div class="brand">MEENDES <span>FITNESS</span></div>
+ <div class="subtitle">FOCO • DISCIPLINA • EVOLUÇÃO</div>
 </header>
 
 <main>
+
+<!-- INÍCIO -->
 <section class="page active" id="homePage">
-  <h2>Bem-vindo ao seu treino!</h2><p>Seu progresso começa com disciplina todos os dias.</p>
-  <div class="clock" id="appClock"><strong id="clockTime">--:--:--</strong><span id="clockDate">Carregando data...</span></div>
-  <div class="card"><h3>Seu progresso semanal</h3><div class="statgrid">
-    <div class="stat"><b id="completedCount">0</b><small>Exercícios concluídos</small></div>
-    <div class="stat"><b id="totalCount">25</b><small>Exercícios da semana</small></div>
-  </div><div class="progress"><div id="weekBar"></div></div><small class="muted" id="weekPercent">0% concluído</small></div>
-  <div class="card"><h3>Treino de hoje</h3><h2 id="todayWorkout">Peito e tríceps</h2><button onclick="showPage('workouts')">ABRIR MEU TREINO</button></div>
-  <div class="card"><h3>Minha evolução</h3><div class="statgrid">
-    <div class="stat"><b id="currentWeight">--</b><small>Peso atual (kg)</small></div>
-    <div class="stat"><b id="weightChange">--</b><small>Variação registrada</small></div>
-  </div></div>
-  <div class="music-hero"><h3>🎵 Música para treinar</h3><p>Suas playlists de academia sem sair da área de treino.</p><button onclick="showPage('music')">ABRIR MÚSICA</button></div>
-</section>
+ <h2>Bem-vindo ao seu treino!</h2>
+ <p>Seu progresso começa com disciplina todos os dias.</p>
 
-<section class="page" id="workoutsPage"><h2>Meus treinos</h2><p>Escolha o dia e acompanhe seus exercícios.</p><div id="dayButtons"></div>
-  <div class="card"><h3 id="workoutTitle">Peito e tríceps</h3><div class="progress"><div id="dayBar"></div></div><small class="muted" id="dayProgress">0 de 5 concluídos</small><div id="exerciseList"></div></div>
-</section>
+ <div class="clock">
+  <strong id="clockTime">--:--:--</strong>
+  <span id="clockDate">Carregando...</span>
+ </div>
 
-<section class="page" id="evolutionPage"><h2>Minha evolução</h2>
-  <div class="card"><h3>Registrar peso</h3><label for="weightInput">Peso atual em kg</label><input id="weightInput" type="number" step="0.1" min="1" placeholder="Ex.: 113.0">
-    <label for="weightDate">Data do registro</label><input id="weightDate" type="date"><br><br><button onclick="addWeight()">SALVAR PESO</button></div>
-  <div class="card"><h3>Histórico de peso</h3><div id="weightHistory"></div></div>
-</section>
-
-<section class="page" id="timerPage"><h2>Cronômetro de descanso</h2>
-  <div class="card"><p style="text-align:center">Tempo restante</p><div class="timer" id="timerDisplay">00:00</div>
-    <div class="timer-controls"><button onclick="chooseTimer(60)">60 SEG</button><button onclick="chooseTimer(90)">90 SEG</button><button onclick="chooseTimer(120)">120 SEG</button></div><br>
-    <div class="row"><button class="green" onclick="startTimer()">INICIAR</button><button class="secondary" onclick="pauseTimer()">PAUSAR</button><button class="secondary" onclick="resetTimer()">ZERAR</button></div>
-    <p class="muted" id="timerStatus" style="text-align:center">Escolha o tempo para começar.</p></div>
-  <div class="card"><h3>Dica</h3><p>Respeite seu intervalo de descanso. Mantenha a execução correta dos movimentos e ajuste o tempo conforme sua necessidade.</p></div>
-</section>
-
-<section class="page" id="musicPage"><h2>🎵 Música para treinar</h2>
-  <div class="card"><div class="row" style="align-items:center"><div style="flex:2"><h3>Conecte sua playlist</h3><p>Adicione o link de uma playlist pública do Spotify para ouvir pelo player incorporado.</p></div><div class="spotify-mark">● Spotify</div></div>
-    <label for="spotifyUrl">Link da playlist do Spotify</label><input id="spotifyUrl" type="url" placeholder="https://open.spotify.com/playlist/...">
-    <br><br><button onclick="loadSpotify()">CARREGAR PLAYLIST</button>
-    <div id="spotifyEmbed" class="embed-wrap"></div>
-    <p class="notice">Observação: o player incorporado depende das permissões e disponibilidade do Spotify. Algumas contas ou faixas podem exigir login ou abrir no aplicativo Spotify. A reprodução completa pelo SDK próprio do Spotify exige configuração de desenvolvedor e conta Premium.</p>
+ <div class="card">
+  <h3>Seu progresso semanal</h3>
+  <div class="statgrid">
+   <div class="stat"><b id="completedCount">0</b><small>Exercícios concluídos</small></div>
+   <div class="stat"><b id="totalCount">25</b><small>Total da semana</small></div>
   </div>
-  <div class="card"><h3>Encontrar playlists de treino</h3>
-    <a class="playlist-link" target="_blank" rel="noopener" href="https://open.spotify.com/search/gym%20motivation">🏋️ Gym Motivation — procurar no Spotify</a>
-    <a class="playlist-link" target="_blank" rel="noopener" href="https://open.spotify.com/search/workout%20hits">🔥 Workout Hits — procurar no Spotify</a>
-    <a class="playlist-link" target="_blank" rel="noopener" href="https://open.spotify.com/search/cardio%20workout">🏃 Cardio Workout — procurar no Spotify</a>
-    <a class="playlist-link" target="_blank" rel="noopener" href="https://open.spotify.com/search/rock%20workout">⚡ Rock para treinar — procurar no Spotify</a>
+  <div class="progress"><div id="weekBar"></div></div>
+  <small class="muted" id="weekPercent">0% concluído</small>
+ </div>
+
+ <div class="card">
+  <h3>Treino de hoje</h3>
+  <h2 id="todayWorkout">Peito e tríceps</h2>
+  <button onclick="showPage('workouts')">ABRIR MEU TREINO</button>
+ </div>
+
+ <div class="card">
+  <h3>Minha evolução</h3>
+  <div class="statgrid">
+   <div class="stat"><b id="currentWeight">--</b><small>Peso atual (kg)</small></div>
+   <div class="stat"><b id="weightChange">--</b><small>Variação</small></div>
   </div>
+ </div>
+
+ <div class="card">
+  <h3>Alimentação de hoje</h3>
+  <div class="statgrid">
+   <div class="stat"><b id="homeCalories">0</b><small>Calorias consumidas</small></div>
+   <div class="stat"><b id="homeMeals">0</b><small>Alimentos registrados</small></div>
+  </div>
+  <br>
+  <button onclick="showPage('food')">REGISTRAR ALIMENTAÇÃO</button>
+ </div>
 </section>
+
+<!-- TREINOS -->
+<section class="page" id="workoutsPage">
+ <h2>Meus treinos</h2>
+ <p>Escolha o dia e acompanhe seus exercícios.</p>
+ <div id="dayButtons"></div>
+ <div class="card">
+  <h3 id="workoutTitle">Peito e tríceps</h3>
+  <div class="progress"><div id="dayBar"></div></div>
+  <small class="muted" id="dayProgress">0 de 5 concluídos</small>
+  <div id="exerciseList"></div>
+ </div>
+</section>
+
+<!-- EVOLUÇÃO -->
+<section class="page" id="evolutionPage">
+ <h2>Minha evolução</h2>
+ <div class="card">
+  <h3>Registrar peso</h3>
+  <label>Peso atual em kg</label>
+  <input id="weightInput" type="number" step="0.1" min="1" placeholder="Ex.: 113.0">
+  <label>Data do registro</label>
+  <input id="weightDate" type="date">
+  <br><br>
+  <button onclick="addWeight()">SALVAR PESO</button>
+ </div>
+ <div class="card">
+  <h3>Histórico de peso</h3>
+  <div id="weightHistory"></div>
+ </div>
+</section>
+
+<!-- TIMER -->
+<section class="page" id="timerPage">
+ <h2>Cronômetro de descanso</h2>
+ <div class="card">
+  <p style="text-align:center">Tempo restante</p>
+  <div class="timer" id="timerDisplay">00:00</div>
+  <div class="timer-controls">
+   <button onclick="chooseTimer(60)">60 SEG</button>
+   <button onclick="chooseTimer(90)">90 SEG</button>
+   <button onclick="chooseTimer(120)">120 SEG</button>
+  </div>
+  <br>
+  <div class="row">
+   <button class="green" onclick="startTimer()">INICIAR</button>
+   <button class="secondary" onclick="pauseTimer()">PAUSAR</button>
+   <button class="secondary" onclick="resetTimer()">ZERAR</button>
+  </div>
+  <p class="muted" id="timerStatus" style="text-align:center">Escolha o tempo.</p>
+ </div>
+</section>
+
+<!-- MÚSICA -->
+<section class="page" id="musicPage">
+ <h2>🎵 Música para treinar</h2>
+ <div class="card">
+  <h3>Suas playlists <span class="spotify">Spotify</span></h3>
+  <p>Adicione o link de uma playlist, álbum ou música do Spotify.</p>
+  <label>Link do Spotify</label>
+  <input id="spotifyUrl" type="url" placeholder="https://open.spotify.com/playlist/...">
+  <br><br>
+  <button onclick="loadSpotify()">CARREGAR PLAYLIST</button>
+  <div class="embed" id="spotifyEmbed"></div>
+  <p class="notice">A reprodução incorporada depende das permissões do Spotify. Algumas músicas podem exigir login ou abertura no aplicativo Spotify. A reprodução completa pelo SDK próprio exige configuração de desenvolvedor e conta Premium.</p>
+ </div>
+ <div class="card">
+  <h3>Playlists para encontrar</h3>
+  <a href="https://open.spotify.com/search/gym%20motivation" target="_blank">🏋️ Gym Motivation</a><br><br>
+  <a href="https://open.spotify.com/search/workout%20hits" target="_blank">🔥 Workout Hits</a><br><br>
+  <a href="https://open.spotify.com/search/cardio%20workout" target="_blank">🏃 Cardio Workout</a><br><br>
+  <a href="https://open.spotify.com/search/rock%20workout" target="_blank">⚡ Rock para treinar</a>
+ </div>
+</section>
+
+<!-- ALIMENTAÇÃO -->
+<section class="page" id="foodPage">
+ <h2>Minha alimentação 🍽️</h2>
+ <p>Registre suas refeições e acompanhe suas calorias durante o dia.</p>
+
+ <div class="food-total">
+  <small class="muted">TOTAL DE CALORIAS DO DIA</small>
+  <div><strong id="dailyCalories">0</strong> <span>kcal</span></div>
+  <small class="muted" id="dailyFoodCount">0 alimentos registrados</small>
+ </div>
+
+ <div class="card">
+  <h3>Registrar alimento</h3>
+
+  <label>Data</label>
+  <input type="date" id="foodDate">
+
+  <label>Tipo de refeição</label>
+  <select id="mealType">
+   <option value="Café da manhã">Café da manhã</option>
+   <option value="Almoço">Almoço</option>
+   <option value="Lanche">Lanche</option>
+   <option value="Jantar">Jantar</option>
+   <option value="Ceia">Ceia</option>
+  </select>
+
+  <label>Alimento</label>
+  <input id="foodName" type="text" placeholder="Ex.: Frango grelhado">
+
+  <label>Quantidade em gramas</label>
+  <input id="foodGrams" type="number" min="1" step="1" placeholder="Ex.: 150">
+
+  <label>Calorias a cada 100 g</label>
+  <input id="foodKcal" type="number" min="0" step="1" placeholder="Ex.: 165">
+
+  <p class="muted">Informe o valor do rótulo ou de uma fonte nutricional confiável. O aplicativo calcula proporcionalmente.</p>
+
+  <button onclick="addFood()">ADICIONAR ALIMENTO</button>
+ </div>
+
+ <div class="card">
+  <h3>Alimentos comuns (valores aproximados)</h3>
+  <p class="muted">Toque em um alimento para preencher o formulário. Os valores podem variar conforme preparo e marca.</p>
+  <div id="foodSuggestions"></div>
+ </div>
+
+ <div class="card">
+  <h3>Resumo das refeições</h3>
+  <div id="foodHistory"></div>
+ </div>
+</section>
+
 </main>
 
 <nav class="tabs">
-  <button class="active" data-page="home" onclick="showPage('home')"><span>⌂</span>Início</button>
-  <button data-page="workouts" onclick="showPage('workouts')"><span>🏋️</span>Treinos</button>
-  <button data-page="evolution" onclick="showPage('evolution')"><span>📈</span>Evolução</button>
-  <button data-page="timer" onclick="showPage('timer')"><span>⏱</span>Timer</button>
-  <button data-page="music" onclick="showPage('music')"><span>♫</span>Música</button>
+ <button class="active" data-page="home" onclick="showPage('home')"><span>⌂</span>Início</button>
+ <button data-page="workouts" onclick="showPage('workouts')"><span>🏋️</span>Treinos</button>
+ <button data-page="evolution" onclick="showPage('evolution')"><span>📈</span>Evolução</button>
+ <button data-page="timer" onclick="showPage('timer')"><span>⏱</span>Timer</button>
+ <button data-page="music" onclick="showPage('music')"><span>♫</span>Música</button>
+ <button data-page="food" onclick="showPage('food')"><span>🍽️</span>Comida</button>
 </nav>
 
 <script>
 "use strict";
-const STORAGE_KEY="mf-state";
+
+/* DADOS DOS TREINOS */
 const defaultPlans=[
-{day:"Segunda-feira",name:"Peito e tríceps",exercises:[["Supino reto","3 séries de 12 repetições","Controle a descida e mantenha os pés firmes."],["Supino inclinado","3 séries de 12 repetições","Não force os ombros e controle o movimento."],["Crucifixo","3 séries de 12 repetições","Mantenha leve flexão nos cotovelos."],["Tríceps pulley","3 séries de 12 repetições","Mantenha os cotovelos próximos ao corpo."],["Tríceps francês","3 séries de 12 repetições","Evite abrir excessivamente os cotovelos."]]},
-{day:"Terça-feira",name:"Pernas — quadríceps",exercises:[["Agachamento","3 séries de 12 repetições","Mantenha a coluna estável e os pés firmes."],["Leg press","3 séries de 12 repetições","Não trave os joelhos na extensão."],["Cadeira extensora","3 séries de 12 repetições","Controle a subida e a descida."],["Afundo","3 séries de 10 repetições","Mantenha equilíbrio e controle."],["Panturrilha","3 séries de 15 repetições","Faça amplitude confortável."]]},
-{day:"Quarta-feira",name:"Costas e bíceps",exercises:[["Puxada frontal","3 séries de 12 repetições","Puxe em direção ao peito sem balançar."],["Remada baixa","3 séries de 12 repetições","Mantenha o tronco firme."],["Remada unilateral","3 séries de 12 repetições","Evite girar o tronco."],["Rosca direta","3 séries de 12 repetições","Evite usar impulso."],["Rosca martelo","3 séries de 12 repetições","Mantenha os punhos alinhados."]]},
-{day:"Quinta-feira",name:"Posterior e glúteos",exercises:[["Mesa flexora","3 séries de 12 repetições","Controle o retorno do movimento."],["Stiff","3 séries de 12 repetições","Mantenha a coluna neutra."],["Elevação pélvica","3 séries de 12 repetições","Contraia os glúteos no alto."],["Cadeira abdutora","3 séries de 15 repetições","Evite movimentos bruscos."],["Coice na polia","3 séries de 12 repetições","Evite compensar com a lombar."]]},
-{day:"Sexta-feira",name:"Ombros e abdômen",exercises:[["Desenvolvimento","3 séries de 12 repetições","Use carga confortável e controle."],["Elevação lateral","3 séries de 12 repetições","Evite elevar os ombros."],["Elevação frontal","3 séries de 12 repetições","Não balance o corpo."],["Abdominal","3 séries de 15 repetições","Evite puxar o pescoço."],["Prancha","3 séries de 30 segundos","Mantenha o corpo alinhado."]]}];
-let saved={};try{saved=JSON.parse(localStorage.getItem(STORAGE_KEY)||"{}")||{}}catch(e){}
+{day:"Segunda-feira",name:"Peito e tríceps",exercises:[
+["Supino reto","3 séries de 12 repetições","Controle a descida."],
+["Supino inclinado","3 séries de 12 repetições","Controle o movimento."],
+["Crucifixo","3 séries de 12 repetições","Mantenha leve flexão nos cotovelos."],
+["Tríceps pulley","3 séries de 12 repetições","Mantenha cotovelos próximos ao corpo."],
+["Tríceps francês","3 séries de 12 repetições","Evite abrir excessivamente os cotovelos."]]},
+{day:"Terça-feira",name:"Pernas — quadríceps",exercises:[
+["Agachamento","3 séries de 12 repetições","Mantenha a coluna estável."],
+["Leg press","3 séries de 12 repetições","Não trave os joelhos."],
+["Cadeira extensora","3 séries de 12 repetições","Controle a subida e descida."],
+["Afundo","3 séries de 10 repetições","Mantenha equilíbrio."],
+["Panturrilha","3 séries de 15 repetições","Faça amplitude confortável."]]},
+{day:"Quarta-feira",name:"Costas e bíceps",exercises:[
+["Puxada frontal","3 séries de 12 repetições","Puxe em direção ao peito."],
+["Remada baixa","3 séries de 12 repetições","Mantenha o tronco firme."],
+["Remada unilateral","3 séries de 12 repetições","Evite girar o tronco."],
+["Rosca direta","3 séries de 12 repetições","Evite usar impulso."],
+["Rosca martelo","3 séries de 12 repetições","Mantenha os punhos alinhados."]]},
+{day:"Quinta-feira",name:"Posterior e glúteos",exercises:[
+["Mesa flexora","3 séries de 12 repetições","Controle o retorno."],
+["Stiff","3 séries de 12 repetições","Mantenha a coluna neutra."],
+["Elevação pélvica","3 séries de 12 repetições","Contraia os glúteos no alto."],
+["Cadeira abdutora","3 séries de 15 repetições","Evite movimentos bruscos."],
+["Coice na polia","3 séries de 12 repetições","Evite compensar com a lombar."]]},
+{day:"Sexta-feira",name:"Ombros e abdômen",exercises:[
+["Desenvolvimento","3 séries de 12 repetições","Use carga confortável."],
+["Elevação lateral","3 séries de 12 repetições","Evite elevar os ombros."],
+["Elevação frontal","3 séries de 12 repetições","Não balance o corpo."],
+["Abdominal","3 séries de 15 repetições","Evite puxar o pescoço."],
+["Prancha","3 séries de 30 segundos","Mantenha o corpo alinhado."]]}
+];
+
+/* ARMAZENAMENTO COMPATÍVEL COM VERSÕES ANTERIORES */
+const STORAGE_KEY="mf-state";
+let saved={};
+try{saved=JSON.parse(localStorage.getItem(STORAGE_KEY)||"{}")||{}}catch(e){}
 if(!saved||typeof saved!=="object"||Array.isArray(saved))saved={};
-try{if(!localStorage.getItem("mf-state-backup-before-v3"))localStorage.setItem("mf-state-backup-before-v3",JSON.stringify(saved))}catch(e){}
-let state=saved._v3||{plans:defaultPlans,completed:{},loads:{},weights:[]};
+
+let state=saved._v5||saved._v3||{
+ plans:defaultPlans,completed:{},loads:{},weights:[],food:[]
+};
+
 if(!Array.isArray(state.plans)||state.plans.length!==5)state.plans=defaultPlans;
-if(!state.completed||typeof state.completed!=="object")state.completed={};
-if(!state.loads||typeof state.loads!=="object")state.loads={};
+if(!state.completed)state.completed={};
+if(!state.loads)state.loads={};
 if(!Array.isArray(state.weights))state.weights=[];
-function saveState(){try{let current={};try{current=JSON.parse(localStorage.getItem(STORAGE_KEY)||"{}")||{}}catch(e){}if(typeof current!=="object"||Array.isArray(current))current={};current._v3=state;localStorage.setItem(STORAGE_KEY,JSON.stringify(current))}catch(e){alert("Não foi possível salvar. Verifique o espaço disponível no iPhone.")}}
-function enterApp(){const s=document.getElementById("splash");s.classList.add("hidden");setTimeout(()=>s.style.display="none",400);try{sessionStorage.setItem("mf-entered","1")}catch(e){}}
-try{if(sessionStorage.getItem("mf-entered")==="1"){document.getElementById("splash").style.display="none"}}catch(e){}
-function updateClock(){const now=new Date();document.getElementById("clockTime").textContent=now.toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit",second:"2-digit",hour12:false});document.getElementById("clockDate").textContent=now.toLocaleDateString("pt-BR",{weekday:"long",day:"2-digit",month:"long",year:"numeric"})}
-updateClock();setInterval(updateClock,1000);document.addEventListener("visibilitychange",()=>{if(!document.hidden)updateClock()});window.addEventListener("pageshow",updateClock);
-function showPage(name){document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));const target=document.getElementById(name+"Page");if(target)target.classList.add("active");document.querySelectorAll(".tabs button").forEach(b=>b.classList.toggle("active",b.dataset.page===name));if(name==="workouts")renderWorkout();if(name==="evolution")renderWeights();if(name==="home")renderHome();window.scrollTo(0,0)}
-let selectedDay=0;function exerciseKey(day,index){return day+"-"+index}
-function renderDayButtons(){const c=document.getElementById("dayButtons");c.innerHTML="";state.plans.forEach((p,i)=>{const b=document.createElement("button");b.className="daybutton"+(selectedDay===i?" selected":"");b.textContent=p.day+" — "+p.name;b.onclick=()=>{selectedDay=i;renderDayButtons();renderWorkout()};c.appendChild(b)})}
-function renderWorkout(){renderDayButtons();const plan=state.plans[selectedDay];document.getElementById("workoutTitle").textContent=plan.name+" — "+plan.day;const c=document.getElementById("exerciseList");c.innerHTML="";let done=0;plan.exercises.forEach((ex,i)=>{const key=exerciseKey(selectedDay,i),isDone=!!state.completed[key];if(isDone)done++;const load=state.loads[key]||{},card=document.createElement("div");card.className="exercise"+(isDone?" done":"");const title=document.createElement("div");title.className="exercise-title";const check=document.createElement("input");check.type="checkbox";check.checked=isDone;check.setAttribute("aria-label","Marcar exercício concluído");check.onchange=()=>{state.completed[key]=check.checked;saveState();renderWorkout();renderHome()};const name=document.createElement("span");name.textContent=(i+1)+". "+ex[0];title.append(check,name);card.appendChild(title);const details=document.createElement("small");details.textContent=ex[1]+" • "+ex[2];card.appendChild(details);const fields=document.createElement("div");fields.className="exercise-fields";[["Carga (kg)","load","Ex.: 20","0.5"],["Repetições","reps","Ex.: 12","1"]].forEach(([label,keyName,placeholder,step])=>{const wrap=document.createElement("div"),lab=document.createElement("label"),input=document.createElement("input");lab.textContent=label;input.type="number";input.min="0";input.step=step;input.placeholder=placeholder;input.value=load[keyName]||"";input.onchange=()=>{state.loads[key]=state.loads[key]||{};state.loads[key][keyName]=input.value;saveState()};wrap.append(lab,input);fields.appendChild(wrap)});card.appendChild(fields);const link=document.createElement("a");link.href="https://www.youtube.com/results?search_query="+encodeURIComponent(ex[0]+" execução correta");link.target="_blank";link.rel="noopener";link.textContent="Ver demonstração do exercício";link.style.display="inline-block";link.style.marginTop="12px";card.appendChild(link);c.appendChild(card)});document.getElementById("dayProgress").textContent=done+" de "+plan.exercises.length+" concluídos";document.getElementById("dayBar").style.width=(done/plan.exercises.length*100)+"%"}
-function getTotalCompleted(){return Object.values(state.completed).filter(Boolean).length}
-function renderHome(){const total=state.plans.reduce((s,p)=>s+p.exercises.length,0),completed=getTotalCompleted(),percent=total?Math.round(completed/total*100):0;document.getElementById("completedCount").textContent=completed;document.getElementById("totalCount").textContent=total;document.getElementById("weekBar").style.width=percent+"%";document.getElementById("weekPercent").textContent=percent+"% concluído";const d=new Date().getDay(),i=d>=1&&d<=5?d-1:0;document.getElementById("todayWorkout").textContent=state.plans[i].name;const w=state.weights;if(w.length){const latest=w[w.length-1].value;document.getElementById("currentWeight").textContent=Number(latest).toFixed(1);if(w.length>1){const change=Number(latest)-Number(w[0].value);document.getElementById("weightChange").textContent=(change>0?"+":"")+change.toFixed(1)+" kg"}else document.getElementById("weightChange").textContent="1º registro"}else{document.getElementById("currentWeight").textContent="--";document.getElementById("weightChange").textContent="--"}}
-function addWeight(){const input=document.getElementById("weightInput"),di=document.getElementById("weightDate"),value=Number(input.value);if(!value||value<=0){alert("Digite um peso válido.");return}const date=di.value||new Date().toISOString().slice(0,10);state.weights.push({value,date});state.weights.sort((a,b)=>a.date.localeCompare(b.date));saveState();input.value="";renderWeights();renderHome();alert("Peso registrado com sucesso!")}
-function renderWeights(){const c=document.getElementById("weightHistory");c.innerHTML="";if(!state.weights.length){c.textContent="Nenhum peso registrado ainda.";return}[...state.weights].reverse().forEach(item=>{const row=document.createElement("div");row.className="weight-item";const d=document.createElement("span"),parts=item.date.split("-");d.textContent=parts.length===3?parts[2]+"/"+parts[1]+"/"+parts[0]:item.date;const v=document.createElement("b");v.textContent=Number(item.value).toFixed(1)+" kg";row.append(d,v);c.appendChild(row)})}
-let timerRemaining=0,timerInterval=null,timerSelected=0,timerEnd=0;function formatTime(s){return String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0")}function renderTimer(){document.getElementById("timerDisplay").textContent=formatTime(timerRemaining)}
-function chooseTimer(s){clearInterval(timerInterval);timerInterval=null;timerSelected=s;timerRemaining=s;document.getElementById("timerStatus").textContent="Intervalo selecionado: "+s+" segundos.";renderTimer()}
-function startTimer(){if(timerInterval)return;if(timerRemaining<=0){if(!timerSelected){document.getElementById("timerStatus").textContent="Escolha 60, 90 ou 120 segundos primeiro.";return}timerRemaining=timerSelected}timerEnd=Date.now()+timerRemaining*1000;timerInterval=setInterval(()=>{timerRemaining=Math.max(0,Math.ceil((timerEnd-Date.now())/1000));renderTimer();if(timerRemaining<=0){clearInterval(timerInterval);timerInterval=null;document.getElementById("timerStatus").textContent="Descanso finalizado! Hora de continuar.";if(navigator.vibrate)navigator.vibrate([250,100,250])}},250);document.getElementById("timerStatus").textContent="Cronômetro em andamento."}
-function pauseTimer(){if(timerInterval){clearInterval(timerInterval);timerInterval=null;document.getElementById("timerStatus").textContent="Pausado."}}
-function resetTimer(){clearInterval(timerInterval);timerInterval=null;timerRemaining=0;timerSelected=0;timerEnd=0;renderTimer();document.getElementById("timerStatus").textContent="Cronômetro zerado. Escolha um intervalo."}
-function loadSpotify(){const raw=document.getElementById("spotifyUrl").value.trim(),container=document.getElementById("spotifyEmbed");let url;try{url=new URL(raw)}catch(e){alert("Cole um link válido de playlist do Spotify.");return}if(!/(^|\.)open\.spotify\.com$/.test(url.hostname)){alert("Use um link do site open.spotify.com.");return}const match=url.pathname.match(/^\/(playlist|album|track|artist)\/([A-Za-z0-9]+)\/?/);if(!match){alert("O link precisa ser de uma playlist, álbum, música ou artista.");return}const type=match[1],id=match[2];container.innerHTML="";const frame=document.createElement("iframe");frame.src="https://open.spotify.com/embed/"+type+"/"+id+"?utm_source=generator&theme=0";frame.title="Player Spotify";frame.allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture";frame.loading="lazy";container.appendChild(frame)}
-document.getElementById("weightDate").value=new Date().toISOString().slice(0,10);renderHome();renderDayButtons();renderWorkout();renderWeights();renderTimer();saveState();
-if("serviceWorker"in navigator){window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(e=>console.log("Service Worker:",e)))}
+if(!Array.isArray(state.food))state.food=[];
+
+function saveState(){
+ try{
+  let current={};
+  try{current=JSON.parse(localStorage.getItem(STORAGE_KEY)||"{}")||{}}catch(e){}
+  if(typeof current!=="object"||Array.isArray(current))current={};
+  current._v5=state;
+  current._v3=state;
+  localStorage.setItem(STORAGE_KEY,JSON.stringify(current));
+ }catch(e){alert("Não foi possível salvar os dados no aparelho.");}
+}
+
+/* ENTRADA */
+function enterApp(){
+ document.getElementById("splash").classList.add("hidden");
+ try{sessionStorage.setItem("mf-entered","1")}catch(e){}
+}
+try{
+ if(sessionStorage.getItem("mf-entered")==="1")
+ document.getElementById("splash").classList.add("hidden");
+}catch(e){}
+
+/* RELÓGIO */
+function updateClock(){
+ const n=new Date();
+ document.getElementById("clockTime").textContent=
+ n.toLocaleTimeString("pt-BR",{hour12:false});
+ document.getElementById("clockDate").textContent=
+ n.toLocaleDateString("pt-BR",{weekday:"long",day:"2-digit",month:"long",year:"numeric"});
+}
+updateClock();
+setInterval(updateClock,1000);
+
+/* NAVEGAÇÃO */
+function showPage(name){
+ document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+ document.getElementById(name+"Page").classList.add("active");
+ document.querySelectorAll(".tabs button").forEach(b=>
+ b.classList.toggle("active",b.dataset.page===name));
+ if(name==="workouts")renderWorkout();
+ if(name==="evolution")renderWeights();
+ if(name==="home")renderHome();
+ if(name==="food")renderFood();
+ window.scrollTo(0,0);
+}
+
+/* TREINOS */
+let selectedDay=0;
+function exerciseKey(d,i){return d+"-"+i}
+function renderDayButtons(){
+ const c=document.getElementById("dayButtons");c.innerHTML="";
+ state.plans.forEach((p,i)=>{
+  const b=document.createElement("button");
+  b.className="daybutton"+(i===selectedDay?" selected":"");
+  b.textContent=p.day+" — "+p.name;
+  b.onclick=()=>{selectedDay=i;renderDayButtons();renderWorkout()};
+  c.appendChild(b);
+ });
+}
+function renderWorkout(){
+ renderDayButtons();
+ const p=state.plans[selectedDay];
+ document.getElementById("workoutTitle").textContent=p.name+" — "+p.day;
+ const c=document.getElementById("exerciseList");c.innerHTML="";
+ let done=0;
+ p.exercises.forEach((ex,i)=>{
+  const key=exerciseKey(selectedDay,i),checked=!!state.completed[key];
+  if(checked)done++;
+  const card=document.createElement("div");card.className="exercise"+(checked?" done":"");
+  const title=document.createElement("div");title.className="exercise-title";
+  const check=document.createElement("input");check.type="checkbox";check.checked=checked;
+  check.onchange=()=>{state.completed[key]=check.checked;saveState();renderWorkout();renderHome()};
+  const name=document.createElement("span");name.textContent=(i+1)+". "+ex[0];
+  title.append(check,name);card.appendChild(title);
+  const details=document.createElement("small");details.textContent=ex[1]+" • "+ex[2];card.appendChild(details);
+  const fields=document.createElement("div");fields.className="exercise-fields";
+  const load=state.loads[key]||{};
+  [["Carga (kg)","load","0.5"],["Repetições","reps","1"]].forEach(([label,k,step])=>{
+   const wrap=document.createElement("div"),lab=document.createElement("label"),input=document.createElement("input");
+   lab.textContent=label;input.type="number";input.step=step;input.min="0";input.value=load[k]||"";
+   input.onchange=()=>{state.loads[key]=state.loads[key]||{};state.loads[key][k]=input.value;saveState()};
+   wrap.append(lab,input);fields.appendChild(wrap);
+  });
+  card.appendChild(fields);
+  const a=document.createElement("a");a.href="https://www.youtube.com/results?search_query="+encodeURIComponent(ex[0]+" execução correta");a.target="_blank";a.rel="noopener";a.textContent="Ver demonstração";
+  card.appendChild(a);c.appendChild(card);
+ });
+ document.getElementById("dayProgress").textContent=done+" de "+p.exercises.length+" concluídos";
+ document.getElementById("dayBar").style.width=(done/p.exercises.length*100)+"%";
+}
+function renderHome(){
+ const total=state.plans.reduce((s,p)=>s+p.exercises.length,0);
+ const done=Object.values(state.completed).filter(Boolean).length;
+ document.getElementById("completedCount").textContent=done;
+ document.getElementById("totalCount").textContent=total;
+ document.getElementById("weekBar").style.width=(total?done/total*100:0)+"%";
+ document.getElementById("weekPercent").textContent=Math.round(total?done/total*100:0)+"% concluído";
+ const d=new Date().getDay(),i=d>=1&&d<=5?d-1:0;
+ document.getElementById("todayWorkout").textContent=state.plans[i].name;
+ const w=state.weights;
+ if(w.length){
+  const latest=w[w.length-1].value;
+  document.getElementById("currentWeight").textContent=Number(latest).toFixed(1);
+  document.getElementById("weightChange").textContent=w.length>1?
+  ((Number(latest)-Number(w[0].value)>0?"+":"")+(Number(latest)-Number(w[0].value)).toFixed(1)+" kg"):"1º registro";
+ }else{
+  document.getElementById("currentWeight").textContent="--";
+  document.getElementById("weightChange").textContent="--";
+ }
+ const today=localDate();
+ const foods=state.food.filter(x=>x.date===today);
+ document.getElementById("homeCalories").textContent=Math.round(foods.reduce((s,x)=>s+x.calories,0));
+ document.getElementById("homeMeals").textContent=foods.length;
+}
+
+/* PESO */
+function localDate(){
+ const d=new Date();
+ return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
+}
+function addWeight(){
+ const value=Number(document.getElementById("weightInput").value);
+ if(!value||value<=0){alert("Digite um peso válido.");return}
+ const date=document.getElementById("weightDate").value||localDate();
+ state.weights.push({value,date});
+ state.weights.sort((a,b)=>a.date.localeCompare(b.date));
+ saveState();document.getElementById("weightInput").value="";
+ renderWeights();renderHome();alert("Peso registrado!");
+}
+function renderWeights(){
+ const c=document.getElementById("weightHistory");c.innerHTML="";
+ if(!state.weights.length){c.textContent="Nenhum peso registrado.";return}
+ [...state.weights].reverse().forEach(x=>{
+  const r=document.createElement("div");r.className="weight-item";
+  const d=document.createElement("span");d.textContent=x.date.split("-").reverse().join("/");
+  const v=document.createElement("b");v.textContent=Number(x.value).toFixed(1)+" kg";
+  r.append(d,v);c.appendChild(r);
+ });
+}
+
+/* CRONÔMETRO */
+let timerRemaining=0,timerSelected=0,timerInterval=null,timerEnd=0;
+function formatTime(s){return String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0")}
+function renderTimer(){document.getElementById("timerDisplay").textContent=formatTime(timerRemaining)}
+function chooseTimer(s){
+ clearInterval(timerInterval);timerInterval=null;timerSelected=s;timerRemaining=s;
+ document.getElementById("timerStatus").textContent="Intervalo selecionado: "+s+" segundos.";
+ renderTimer();
+}
+function startTimer(){
+ if(timerInterval)return;
+ if(timerRemaining<=0){
+  if(!timerSelected){document.getElementById("timerStatus").textContent="Escolha um intervalo primeiro.";return}
+  timerRemaining=timerSelected;
+ }
+ timerEnd=Date.now()+timerRemaining*1000;
+ timerInterval=setInterval(()=>{
+  timerRemaining=Math.max(0,Math.ceil((timerEnd-Date.now())/1000));renderTimer();
+  if(timerRemaining<=0){
+   clearInterval(timerInterval);timerInterval=null;
+   document.getElementById("timerStatus").textContent="Descanso finalizado!";
+   if(navigator.vibrate)navigator.vibrate([250,100,250]);
+  }
+ },250);
+ document.getElementById("timerStatus").textContent="Cronômetro em andamento.";
+}
+function pauseTimer(){
+ if(timerInterval){clearInterval(timerInterval);timerInterval=null;document.getElementById("timerStatus").textContent="Pausado."}
+}
+function resetTimer(){
+ clearInterval(timerInterval);timerInterval=null;timerRemaining=0;timerSelected=0;timerEnd=0;renderTimer();
+ document.getElementById("timerStatus").textContent="Cronômetro zerado.";
+}
+
+/* SPOTIFY */
+function loadSpotify(){
+ const raw=document.getElementById("spotifyUrl").value.trim();
+ let url;
+ try{url=new URL(raw)}catch(e){alert("Cole um link válido do Spotify.");return}
+ if(url.hostname!=="open.spotify.com"&&!url.hostname.endsWith(".open.spotify.com")){
+  alert("Use um link do site open.spotify.com.");return;
+ }
+ const match=url.pathname.match(/^\/(playlist|album|track|artist)\/([A-Za-z0-9]+)/);
+ if(!match){alert("Link de playlist, álbum, música ou artista não reconhecido.");return}
+ const c=document.getElementById("spotifyEmbed");c.innerHTML="";
+ const iframe=document.createElement("iframe");
+ iframe.src="https://open.spotify.com/embed/"+match[1]+"/"+match[2]+"?theme=0";
+ iframe.allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture";
+ iframe.loading="lazy";iframe.title="Player Spotify";c.appendChild(iframe);
+}
+
+/* ALIMENTAÇÃO */
+const foodSuggestions=[
+ ["Peito de frango grelhado",165],
+ ["Arroz branco cozido",128],
+ ["Feijão cozido",76],
+ ["Patinho bovino grelhado",219],
+ ["Ovo cozido",146],
+ ["Batata-doce cozida",77],
+ ["Banana",89],
+ ["Maçã",52],
+ ["Aveia",394],
+ ["Alface",15],
+ ["Tomate",18],
+ ["Pão francês",300],
+ ["Queijo muçarela",330],
+ ["Iogurte natural",63]
+];
+function renderSuggestions(){
+ const c=document.getElementById("foodSuggestions");c.innerHTML="";
+ foodSuggestions.forEach(([name,kcal])=>{
+  const b=document.createElement("button");b.className="secondary";
+  b.style.margin="4px";b.style.padding="9px";
+  b.textContent=name;
+  b.onclick=()=>{
+   document.getElementById("foodName").value=name;
+   document.getElementById("foodKcal").value=kcal;
+  };
+  c.appendChild(b);
+ });
+}
+function addFood(){
+ const name=document.getElementById("foodName").value.trim();
+ const grams=Number(document.getElementById("foodGrams").value);
+ const kcal100=Number(document.getElementById("foodKcal").value);
+ const date=document.getElementById("foodDate").value||localDate();
+ const meal=document.getElementById("mealType").value;
+ if(!name){alert("Digite o nome do alimento.");return}
+ if(!grams||grams<=0){alert("Informe uma quantidade válida em gramas.");return}
+ if(!Number.isFinite(kcal100)||kcal100<0){alert("Informe as calorias por 100 g.");return}
+ const calories=grams*kcal100/100;
+ state.food.push({
+  id:Date.now().toString()+"-"+Math.random().toString(16).slice(2),
+  name,grams,kcal100,calories,date,meal
+ });
+ saveState();
+ document.getElementById("foodName").value="";
+ document.getElementById("foodGrams").value="";
+ document.getElementById("foodKcal").value="";
+ renderFood();renderHome();
+ alert("Alimento registrado com sucesso!");
+}
+function removeFood(id){
+ state.food=state.food.filter(x=>x.id!==id);
+ saveState();renderFood();renderHome();
+}
+function renderFood(){
+ const date=document.getElementById("foodDate").value||localDate();
+ const list=state.food.filter(x=>x.date===date);
+ const total=list.reduce((s,x)=>s+x.calories,0);
+ document.getElementById("dailyCalories").textContent=Math.round(total);
+ document.getElementById("dailyFoodCount").textContent=list.length+" alimentos registrados";
+ const c=document.getElementById("foodHistory");c.innerHTML="";
+ if(!list.length){c.textContent="Nenhum alimento registrado nesta data."}
+ const meals=["Café da manhã","Almoço","Lanche","Jantar","Ceia"];
+ meals.forEach(meal=>{
+  const items=list.filter(x=>x.meal===meal);
+  if(!items.length)return;
+  const title=document.createElement("div");title.className="meal-title";title.textContent=meal;c.appendChild(title);
+  items.forEach(item=>{
+   const row=document.createElement("div");row.className="food-item";
+   const info=document.createElement("div");
+   const name=document.createElement("b");name.textContent=item.name;
+   const detail=document.createElement("div");detail.className="muted";
+   detail.textContent=item.grams+" g • "+Math.round(item.calories)+" kcal";
+   info.append(name,detail);
+   const del=document.createElement("button");del.textContent="Excluir";del.onclick=()=>removeFood(item.id);
+   row.append(info,del);c.appendChild(row);
+  });
+ });
+}
+document.getElementById("foodDate").value=localDate();
+document.getElementById("foodDate").addEventListener("change",renderFood);
+document.getElementById("weightDate").value=localDate();
+
+/* INICIALIZAÇÃO */
+renderSuggestions();
+renderHome();
+renderDayButtons();
+renderWorkout();
+renderWeights();
+renderFood();
+renderTimer();
+saveState();
+
+if("serviceWorker"in navigator){
+ window.addEventListener("load",()=>{
+  navigator.serviceWorker.register("./sw.js").catch(e=>console.log(e));
+ });
+}
 </script>
 </body>
 </html>
