@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#111318">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Meendes Fitness">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icon-192.png">
+<title>MEENDES FITNESS</title>
+<style>
+:root{color-scheme:dark;--bg:#101116;--panel:#1b1d25;--panel2:#242630;--red:#ef4444;--muted:#a4a6b1;--white:#f7f7f8;--green:#22c55e}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--white);font:16px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom)}
+header{padding:22px 20px 16px;background:linear-gradient(145deg,#1c1e26,#101116);border-bottom:1px solid #30323c}
+.brand{font-size:25px;font-weight:900;letter-spacing:1px}.brand span{color:var(--red)}.tag{font-size:10px;letter-spacing:2px;color:var(--muted);margin-top:4px}
+main{max-width:650px;margin:auto;padding:18px 16px 100px}.tabs{display:flex;gap:8px;margin:0 0 18px}.tabs button{flex:1;background:var(--panel);color:#bbb;border:1px solid #333642;padding:12px 5px;border-radius:12px;font-weight:700}.tabs button.active{background:var(--red);color:white;border-color:var(--red)}
+h1{font-size:24px;margin:8px 0}h2{font-size:18px;margin:0 0 12px}.muted{color:var(--muted);font-size:13px}.card{background:var(--panel);border:1px solid #2d303a;border-radius:17px;padding:16px;margin:12px 0}.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px}.stat{background:var(--panel2);border-radius:13px;padding:14px}.stat b{font-size:24px;display:block}.stat small{color:var(--muted)}.dayrow{display:flex;gap:6px;margin:14px 0}.dayrow button{flex:1;padding:11px 0;border-radius:10px;border:1px solid #393c47;background:var(--panel);color:#ddd;font-weight:800}.dayrow button.active{background:var(--red);border-color:var(--red);color:#fff}
+.exercise{display:flex;align-items:center;gap:12px;padding:13px;background:var(--panel2);border-radius:12px;margin:8px 0}.exercise input{width:21px;height:21px;accent-color:var(--red)}.exercise.done span{text-decoration:line-through;color:#858894}
+button.primary{width:100%;padding:14px;background:var(--red);color:white;border:0;border-radius:12px;font-weight:800;font-size:15px;margin-top:8px}button.secondary{padding:11px 14px;background:var(--panel2);color:white;border:1px solid #3b3e49;border-radius:10px;font-weight:700}
+input{width:100%;padding:13px;background:var(--panel2);border:1px solid #3a3d48;border-radius:10px;color:white;font-size:16px;margin:8px 0}
+.timer{text-align:center;font-size:48px;font-weight:900;margin:10px}.timer-actions{display:flex;gap:8px}.timer-actions button{flex:1}
+.progress{height:8px;background:#343743;border-radius:99px;overflow:hidden;margin-top:10px}.progress div{height:100%;background:var(--green);width:0}
+.item{display:flex;justify-content:space-between;padding:11px 0;border-bottom:1px solid #333642}.hidden{display:none}.note{font-size:12px;color:var(--muted);line-height:1.5}.pill{display:inline-block;background:#352126;color:#ff9a9a;padding:5px 9px;border-radius:99px;font-size:11px;font-weight:800}
+footer{text-align:center;color:#777985;font-size:10px;letter-spacing:1px;padding:24px}
+</style>
+</head>
+<body>
+<header><div class="brand">MEENDES <span>FITNESS</span></div><div class="tag">TREINE • EVOLUA • SUPERE-SE</div></header>
+<main>
+<nav class="tabs">
+<button class="active" data-tab="home">Início</button><button data-tab="workout">Treinos</button><button data-tab="progress">Evolução</button><button data-tab="timer">Timer</button>
+</nav>
+<section id="home">
+<h1>Seu foco começa hoje. 🔥</h1><p class="muted">Emagrecimento + ganho de massa muscular</p>
+<div class="stats"><div class="stat"><b id="currentWeight">110 kg</b><small>Peso atual</small></div><div class="stat"><b>5 dias</b><small>Treinos por semana</small></div></div>
+<div class="card"><h2>Plano semanal</h2><div id="weekList"></div></div>
+<div class="card"><h2>Meta de cardio</h2><b style="font-size:24px;color:#f87171">20–30 min</b><p class="muted">Depois da musculação. Comece em intensidade moderada e ajuste conforme seu condicionamento.</p></div>
+<div class="card"><h2>Progresso dos treinos</h2><b id="completedCount">0 / 25 exercícios marcados</b><div class="progress"><div id="overallProgress"></div></div></div>
+</section>
+<section id="workout" class="hidden">
+<h1>Meus treinos</h1><p class="muted">Marque os exercícios concluídos. O registro fica salvo neste aparelho.</p>
+<div class="dayrow" id="dayButtons"></div><div class="card"><span class="pill" id="dayLabel">SEGUNDA</span><h2 id="workoutTitle" style="margin-top:12px">Peito e tríceps</h2><div id="exerciseList"></div><button class="secondary" id="resetDay">Reiniciar este treino</button></div>
+<div class="card"><h2>Cardio pós-musculação</h2><p class="muted">20–30 minutos de caminhada, bicicleta ou elíptico em ritmo confortável a moderado.</p></div>
+</section>
+<section id="progress" class="hidden">
+<h1>Minha evolução</h1><div class="card"><div class="muted">Peso mais recente</div><b id="latestWeight" style="font-size:32px">110 kg</b><p class="muted">Peso inicial cadastrado: 110 kg</p></div>
+<div class="card"><h2>Registrar pesagem</h2><label class="muted" for="weightInput">Novo peso em kg</label><input id="weightInput" type="number" inputmode="decimal" min="1" max="500" step="0.1" placeholder="Ex.: 109,5"><button class="primary" id="saveWeight">Salvar peso</button></div>
+<div class="card"><h2>Histórico</h2><div id="history"></div></div>
+</section>
+<section id="timer" class="hidden">
+<h1>Descanso entre séries</h1><p class="muted">Escolha um intervalo e inicie o cronômetro.</p>
+<div class="card"><div class="timer" id="timerDisplay">01:30</div><div class="timer-actions"><button class="secondary" data-seconds="60">60 s</button><button class="secondary" data-seconds="90">90 s</button><button class="secondary" data-seconds="120">120 s</button></div><button class="primary" id="timerStart">Iniciar</button><button class="secondary" style="width:100%;margin-top:8px" id="timerReset">Zerar</button></div>
+</section>
+<p class="note">Treino geral de referência para nível intermediário. Ajuste cargas e amplitude à sua capacidade, mantenha a técnica correta e interrompa se sentir dor. Procure orientação profissional para individualizar o programa.</p>
+<footer>MEENDES FITNESS • USO PESSOAL • V1.0</footer>
+</main>
+<script>
+const plans=[
+{day:"SEG",full:"SEGUNDA",name:"Peito e tríceps",items:["Supino reto — 3×10","Supino inclinado — 3×12","Crucifixo máquina — 3×12","Tríceps corda — 3×12","Tríceps francês — 3×12"]},
+{day:"TER",full:"TERÇA",name:"Pernas — quadríceps",items:["Agachamento — 3×10","Leg press — 3×12","Cadeira extensora — 3×12","Mesa flexora — 3×12","Panturrilha — 3×15"]},
+{day:"QUA",full:"QUARTA",name:"Costas e bíceps",items:["Puxada frontal — 3×10","Remada baixa — 3×12","Remada unilateral — 3×12","Rosca direta — 3×12","Rosca martelo — 3×12"]},
+{day:"QUI",full:"QUINTA",name:"Posterior e glúteos",items:["Stiff — 3×10","Mesa flexora — 3×12","Elevação pélvica — 3×12","Cadeira abdutora — 3×15","Panturrilha — 3×15"]},
+{day:"SEX",full:"SEXTA",name:"Ombros e abdômen",items:["Desenvolvimento — 3×10","Elevação lateral — 3×12","Crucifixo inverso — 3×12","Abdominal máquina — 3×15","Prancha — 3×30 segundos"]}
+];
+const $=id=>document.getElementById(id);
+let state=JSON.parse(localStorage.getItem("mf-state")||'{"weightHistory":[{"weight":110,"date":"Inicial"}],"done":{},"day":"SEG"}');
+function save(){localStorage.setItem("mf-state",JSON.stringify(state))}
+let activeDay=state.day||"SEG";
+function renderWeek(){
+ $("weekList").innerHTML=plans.map(p=>`<div class="item"><span><b>${p.day}</b> · ${p.name}</span><span class="muted">${p.items.filter(x=>state.done[p.day+"|"+x]).length}/5</span></div>`).join("");
+ const total=Object.values(state.done).filter(Boolean).length;$("completedCount").textContent=`${total} / 25 exercícios marcados`;$("overallProgress").style.width=(total/25*100)+"%";
+}
+function renderWorkout(){
+ const p=plans.find(x=>x.day===activeDay);$("dayLabel").textContent=p.full;$("workoutTitle").textContent=p.name;
+ $("dayButtons").innerHTML=plans.map(x=>`<button class="${x.day===activeDay?"active":""}" data-day="${x.day}">${x.day}</button>`).join("");
+ $("dayButtons").querySelectorAll("button").forEach(b=>b.onclick=()=>{activeDay=b.dataset.day;state.day=activeDay;save();renderWorkout()});
+ $("exerciseList").innerHTML=p.items.map(x=>{let key=p.day+"|"+x,checked=!!state.done[key];return `<label class="exercise ${checked?"done":""}"><input type="checkbox" data-key="${encodeURIComponent(key)}" ${checked?"checked":""}><span>${x}</span></label>`}).join("");
+ $("exerciseList").querySelectorAll("input").forEach(c=>c.onchange=()=>{let k=decodeURIComponent(c.dataset.key);state.done[k]=c.checked;save();renderWorkout();renderWeek()});
+ $("resetDay").onclick=()=>{p.items.forEach(x=>delete state.done[p.day+"|"+x]);save();renderWorkout();renderWeek()};
+}
+function renderHistory(){
+ let arr=state.weightHistory||[];let last=arr[arr.length-1];$("currentWeight").textContent=last.weight+" kg";$("latestWeight").textContent=last.weight+" kg";
+ $("history").innerHTML=[...arr].reverse().map(x=>`<div class="item"><span>${x.date}</span><b>${x.weight} kg</b></div>`).join("");
+}
+document.querySelectorAll(".tabs button").forEach(b=>b.onclick=()=>{document.querySelectorAll(".tabs button").forEach(x=>x.classList.toggle("active",x===b));["home","workout","progress","timer"].forEach(id=>$(id).classList.toggle("hidden",id!==b.dataset.tab));});
+$("saveWeight").onclick=()=>{let n=Number($("weightInput").value.replace(",","."));if(!n||n<1||n>500){alert("Digite um peso válido.");return}state.weightHistory.push({weight:n.toFixed(1),date:new Date().toLocaleDateString("pt-BR")});save();$("weightInput").value="";renderHistory()};
+let remaining=90,interval=null;
+function showTimer(){$("timerDisplay").textContent=String(Math.floor(remaining/60)).padStart(2,"0")+":"+String(remaining%60).padStart(2,"0")}
+document.querySelectorAll("[data-seconds]").forEach(b=>b.onclick=()=>{clearInterval(interval);interval=null;remaining=Number(b.dataset.seconds);$("timerStart").textContent="Iniciar";showTimer()});
+$("timerStart").onclick=()=>{if(interval){clearInterval(interval);interval=null;$("timerStart").textContent="Continuar";return} $("timerStart").textContent="Pausar";interval=setInterval(()=>{remaining--;showTimer();if(remaining<=0){clearInterval(interval);interval=null;$("timerStart").textContent="Iniciar";if(navigator.vibrate)navigator.vibrate([200,100,200]);}},1000)};
+$("timerReset").onclick=()=>{clearInterval(interval);interval=null;remaining=90;showTimer();$("timerStart").textContent="Iniciar"};
+renderWeek();renderWorkout();renderHistory();showTimer();
+if("serviceWorker" in navigator && location.protocol.startsWith("http"))window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(()=>{}));
+</script>
+</body></html>
