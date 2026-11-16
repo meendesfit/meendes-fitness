@@ -38,7 +38,7 @@ a{color:#ff6874}.progress{height:10px;background:#333640;border-radius:20px;over
 .spotify-mark{color:#1ed760;font-weight:900;font-size:18px}.playlist-link{display:block;background:#242730;padding:13px;border-radius:11px;margin:9px 0;color:white;text-decoration:none;border:1px solid #383b45}
 .embed-wrap{position:relative;width:100%;margin-top:12px;border-radius:12px;overflow:hidden}.embed-wrap iframe{width:100%;height:352px;border:0}
 .splash{position:fixed;inset:0;z-index:100;background:#08090b;display:flex;align-items:center;justify-content:center;padding:0;transition:opacity .35s}
-.splash img{width:100%;height:100%;object-fit:cover;display:block}
+.splash img{width:100%;height:100%;object-fit:contain;object-position:center center;display:block;background:#08090b}
 .splash:after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(0,0,0,.82),transparent 38%)}
 .splash button{position:absolute;z-index:2;bottom:calc(35px + env(safe-area-inset-bottom));left:9%;width:82%;padding:16px;font-size:16px;box-shadow:0 5px 24px #000}
 .splash.hidden{opacity:0;pointer-events:none}
