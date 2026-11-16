@@ -1,55 +1,43 @@
 
-const CACHE = "meendes-fitness-v2";
-
-const FILES = [
-  "./",
-  "./index.html",
-  "./manifest.webmanifest",
-  "./icon-192.png",
-  "./icon-512.png"
-];
+const CACHE_NAME = "meendes-fitness-v5";
 
 self.addEventListener("install", event => {
-  event.waitUntil(
-    caches.open(CACHE)
-      .then(cache => cache.addAll(FILES))
-      .then(() => self.skipWaiting())
-  );
+  self.skipWaiting();
 });
 
 self.addEventListener("activate", event => {
   event.waitUntil(
-    caches.keys()
-      .then(keys => Promise.all(
+    (async () => {
+      const keys = await caches.keys();
+      await Promise.all(
         keys
-          .filter(key => key !== CACHE)
+          .filter(key => key !== CACHE_NAME)
           .map(key => caches.delete(key))
-      ))
-      .then(() => self.clients.claim())
+      );
+      await self.clients.claim();
+    })()
   );
 });
 
 self.addEventListener("fetch", event => {
-  if (event.request.method !== "GET") return;
+  const request = event.request;
 
-  if (event.request.mode === "navigate") {
+  if (request.method !== "GET") return;
+
+  if (request.mode === "navigate") {
     event.respondWith(
-      fetch(event.request)
+      fetch(request)
         .then(response => {
           const copy = response.clone();
-          caches.open(CACHE).then(cache =>
+          caches.open(CACHE_NAME).then(cache =>
             cache.put("./index.html", copy)
           );
           return response;
         })
-        .catch(() => caches.match("./index.html"))
+        .catch(async () => {
+          return await caches.match(request) ||
+                 await caches.match("./index.html");
+        })
     );
-    return;
   }
-
-  event.respondWith(
-    caches.match(event.request).then(cached =>
-      cached || fetch(event.request)
-    )
-  );
 });
