@@ -11,7 +11,6 @@
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icon-192.png">
 <title>MEENDES FITNESS</title>
-
 <style>
 :root{color-scheme:dark;--bg:#101116;--panel:#1b1d25;--panel2:#242630;--red:#ef4444;--muted:#a4a6b1;--white:#f7f7f8;--green:#22c55e}
 *{box-sizing:border-box}
@@ -20,7 +19,7 @@ header{padding:22px 20px 16px;background:linear-gradient(145deg,#1c1e26,#101116)
 .brand{font-size:25px;font-weight:900;letter-spacing:1px}
 .brand span{color:var(--red)}
 .tag{font-size:10px;letter-spacing:2px;color:var(--muted);margin-top:4px}
-main{max-width:650px;margin:auto;padding:18px 16px 100px}
+main{max-width:650px;margin:auto;padding:18px 16px 40px}
 .tabs{display:flex;gap:8px;margin:0 0 18px}
 .tabs button{flex:1;background:var(--panel);color:#bbb;border:1px solid #333642;padding:12px 5px;border-radius:12px;font-weight:700}
 .tabs button.active{background:var(--red);color:white;border-color:var(--red)}
@@ -36,8 +35,9 @@ h3{font-size:16px;margin:0 0 8px}
 .dayrow{display:flex;gap:6px;margin:14px 0}
 .dayrow button{flex:1;padding:11px 0;border-radius:10px;border:1px solid #393c47;background:var(--panel);color:#ddd;font-weight:800}
 .dayrow button.active{background:var(--red);border-color:var(--red);color:#fff}
-.exercise{display:flex;align-items:flex-start;gap:10px;padding:13px;background:var(--panel2);border-radius:12px;margin:8px 0}
-.exercise input{width:21px;height:21px;accent-color:var(--red);flex-shrink:0;margin-top:2px}
+.exercise{padding:13px;background:var(--panel2);border-radius:12px;margin:8px 0}
+.exercise-top{display:flex;align-items:flex-start;gap:10px}
+.exercise input[type=checkbox]{width:21px;height:21px;accent-color:var(--red);flex-shrink:0;margin-top:2px}
 .exercise.done .exercise-name{text-decoration:line-through;color:#858894}
 .exercise-content{flex:1;min-width:0}
 .exercise-name{font-weight:800;font-size:14px}
@@ -48,7 +48,9 @@ button.secondary{padding:11px 14px;background:var(--panel2);color:white;border:1
 .guide-btn,.video-btn{padding:8px 10px;border-radius:9px;font-size:11px;font-weight:800;text-decoration:none;display:inline-block}
 .guide-btn{background:#382126;color:#ffb0b0;border:1px solid #71333b}
 .video-btn{background:#292b35;color:white;border:1px solid #454856}
-input{width:100%;padding:13px;background:var(--panel2);border:1px solid #3a3d48;border-radius:10px;color:white;font-size:16px;margin:8px 0}
+input[type=number]{width:100%;padding:12px;background:var(--panel2);border:1px solid #3a3d48;border-radius:10px;color:white;font-size:16px;margin:6px 0}
+.log-fields{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+.log-fields label{font-size:11px;color:var(--muted)}
 .timer{text-align:center;font-size:48px;font-weight:900;margin:10px}
 .timer-actions{display:flex;gap:8px}
 .timer-actions button{flex:1}
@@ -64,10 +66,11 @@ input{width:100%;padding:13px;background:var(--panel2);border:1px solid #3a3d48;
 .guide-tip{font-size:12px;color:#ffc1c1;line-height:1.5}
 .guide-progress{height:7px;background:#44404a;border-radius:20px;overflow:hidden}
 .guide-progress div{height:100%;background:var(--red);width:0;transition:width .2s}
-footer{text-align:center;color:#777985;font-size:10px;letter-spacing:1px;padding:24px}
+.clock{margin:20px auto 0;text-align:center;color:#777985;font-size:11px;letter-spacing:.5px}
+.clock strong{display:block;color:#a4a6b1;font-size:14px;letter-spacing:1px;margin-bottom:3px}
+footer{text-align:center;color:#777985;font-size:10px;letter-spacing:1px;padding:15px}
 </style>
 </head>
-
 <body>
 <header>
 <div class="brand">MEENDES <span>FITNESS</span></div>
@@ -100,11 +103,15 @@ footer{text-align:center;color:#777985;font-size:10px;letter-spacing:1px;padding
 <b id="completedCount">0 / 25 exercícios marcados</b>
 <div class="progress"><div id="overallProgress"></div></div>
 </div>
+<div class="clock">
+<strong id="clockTime">00:00:00</strong>
+<span id="clockDate">Carregando data...</span>
+</div>
 </section>
 
 <section id="workout" class="hidden">
 <h1>Meus treinos</h1>
-<p class="muted">Marque os exercícios concluídos e consulte os guias de execução.</p>
+<p class="muted">Marque os exercícios concluídos e registre suas cargas.</p>
 <div class="dayrow" id="dayButtons"></div>
 <div class="card">
 <span class="pill" id="dayLabel">SEGUNDA</span>
@@ -132,14 +139,15 @@ footer{text-align:center;color:#777985;font-size:10px;letter-spacing:1px;padding
 <input id="weightInput" type="number" inputmode="decimal" min="1" max="500" step="0.1" placeholder="Ex.: 109,5">
 <button class="primary" id="saveWeight">Salvar peso</button>
 </div>
-<div class="card"><h2>Histórico</h2><div id="history"></div></div>
+<div class="card"><h2>Histórico de peso</h2><div id="history"></div></div>
+<div class="card"><h2>Registros de exercícios</h2><p class="muted">As cargas e repetições ficam salvas em cada exercício na aba Treinos.</p><div id="liftHistory"></div></div>
 </section>
 
 <section id="timer" class="hidden">
 <h1>Descanso entre séries</h1>
 <p class="muted">Escolha um intervalo e inicie o cronômetro.</p>
 <div class="card">
-<div class="timer" id="timerDisplay">01:30</div>
+<div class="timer" id="timerDisplay">00:00</div>
 <div class="timer-actions">
 <button class="secondary" data-seconds="60">60 s</button>
 <button class="secondary" data-seconds="90">90 s</button>
@@ -147,11 +155,12 @@ footer{text-align:center;color:#777985;font-size:10px;letter-spacing:1px;padding
 </div>
 <button class="primary" id="timerStart">Iniciar</button>
 <button class="secondary" style="width:100%;margin-top:8px" id="timerReset">Zerar</button>
+<p class="muted" id="timerMessage">Selecione 60, 90 ou 120 segundos para começar.</p>
 </div>
 </section>
 
 <p class="note">Treino geral de referência. Ajuste cargas e amplitude à sua capacidade, mantenha a técnica correta e interrompa se sentir dor. Procure orientação profissional para individualizar o programa.</p>
-<footer>MEENDES FITNESS • USO PESSOAL • V2.0</footer>
+<footer>MEENDES FITNESS • V2.1</footer>
 </main>
 
 <script>
@@ -194,7 +203,6 @@ const plans=[
 ];
 
 const $=id=>document.getElementById(id);
-
 let state;
 try{
 state=JSON.parse(localStorage.getItem("mf-state"))||
@@ -202,12 +210,11 @@ state=JSON.parse(localStorage.getItem("mf-state"))||
 }catch(e){
 state={weightHistory:[{weight:110,date:"Inicial"}],done:{},day:"SEG"};
 }
-
 if(!state.weightHistory)state.weightHistory=[{weight:110,date:"Inicial"}];
 if(!state.done)state.done={};
+if(!state.lifts)state.lifts={};
 
 function save(){localStorage.setItem("mf-state",JSON.stringify(state))}
-
 let activeDay=state.day||"SEG";
 let guideInterval=null;
 let guideData=null;
@@ -217,7 +224,6 @@ $("weekList").innerHTML=plans.map(p=>
 `<div class="item"><span><b>${p.day}</b> · ${p.name}</span>
 <span class="muted">${p.items.filter(x=>state.done[p.day+"|"+x[0]]).length}/5</span></div>`
 ).join("");
-
 const total=Object.values(state.done).filter(Boolean).length;
 $("completedCount").textContent=`${total} / 25 exercícios marcados`;
 $("overallProgress").style.width=(total/25*100)+"%";
@@ -227,11 +233,9 @@ function renderWorkout(){
 const p=plans.find(x=>x.day===activeDay);
 $("dayLabel").textContent=p.full;
 $("workoutTitle").textContent=p.name;
-
 $("dayButtons").innerHTML=plans.map(x=>
 `<button class="${x.day===activeDay?"active":""}" data-day="${x.day}">${x.day}</button>`
 ).join("");
-
 $("dayButtons").querySelectorAll("button").forEach(b=>{
 b.onclick=()=>{
 activeDay=b.dataset.day;
@@ -241,25 +245,30 @@ stopGuide();
 renderWorkout();
 };
 });
-
 $("exerciseList").innerHTML=p.items.map((x,i)=>{
 let key=p.day+"|"+x[0];
 let checked=!!state.done[key];
-
+let log=state.lifts[key]||{};
 return `<div class="exercise ${checked?"done":""}">
+<div class="exercise-top">
 <input type="checkbox" data-index="${i}" ${checked?"checked":""}>
 <div class="exercise-content">
 <div class="exercise-name">${x[0]}</div>
 <div class="exercise-detail">${x[1]} séries • ${x[2]}</div>
+<div class="log-fields">
+<label>Carga (kg)<input type="number" inputmode="decimal" step="0.5" min="0" placeholder="Ex.: 20" data-load="${i}" value="${log.load||""}"></label>
+<label>Repetições<input type="number" inputmode="numeric" min="0" placeholder="Ex.: 10" data-reps="${i}" value="${log.reps||""}"></label>
+</div>
 <div class="exercise-actions">
 <button class="guide-btn" data-guide="${i}">⏱ Guia 20 segundos</button>
 <a class="video-btn" href="https://www.youtube.com/results?search_query=${encodeURIComponent(x[0]+" execução correta academia")}" target="_blank" rel="noopener">▶ Demonstração</a>
 </div>
 </div>
+</div>
 </div>`;
 }).join("");
 
-$("exerciseList").querySelectorAll("input").forEach(c=>{
+$("exerciseList").querySelectorAll('input[type="checkbox"]').forEach(c=>{
 c.onchange=()=>{
 let x=p.items[Number(c.dataset.index)];
 state.done[p.day+"|"+x[0]]=c.checked;
@@ -268,18 +277,26 @@ renderWorkout();
 renderWeek();
 };
 });
-
+$("exerciseList").querySelectorAll("[data-load],[data-reps]").forEach(input=>{
+input.onchange=()=>{
+let i=Number(input.dataset.load??input.dataset.reps);
+let key=p.day+"|"+p.items[i][0];
+if(!state.lifts[key])state.lifts[key]={};
+if(input.dataset.load!==undefined)state.lifts[key].load=input.value;
+if(input.dataset.reps!==undefined)state.lifts[key].reps=input.value;
+save();
+renderLiftHistory();
+};
+});
 $("exerciseList").querySelectorAll("[data-guide]").forEach(b=>{
 b.onclick=()=>startGuide(Number(b.dataset.guide));
 });
-
 $("resetDay").onclick=()=>{
 p.items.forEach(x=>delete state.done[p.day+"|"+x[0]]);
 save();
 renderWorkout();
 renderWeek();
 };
-
 renderGuide();
 }
 
@@ -287,7 +304,6 @@ function startGuide(index){
 stopGuide();
 guideData={day:activeDay,index:index,remaining:20};
 renderGuide();
-
 guideInterval=setInterval(()=>{
 if(!guideData)return;
 guideData.remaining--;
@@ -299,13 +315,11 @@ guideInterval=null;
 renderGuide();
 },1000);
 }
-
 function stopGuide(){
 clearInterval(guideInterval);
 guideInterval=null;
 guideData=null;
 }
-
 function renderGuide(){
 const area=$("guideArea");
 if(!guideData){
@@ -315,32 +329,26 @@ area.innerHTML=`<div class="guide-card">
 </div>`;
 return;
 }
-
 const p=plans.find(x=>x.day===guideData.day);
 const exercise=p.items[guideData.index];
 const elapsed=20-guideData.remaining;
 const phase=Math.min(3,Math.floor(elapsed/5));
-
 const phases=[
 "0–5 segundos: ajuste sua posição, postura e apoio antes de começar.",
 "5–10 segundos: inicie o movimento devagar, mantendo o controle.",
 "10–15 segundos: continue o movimento sem usar impulso.",
 "15–20 segundos: retorne com controle e mantenha a respiração."
 ];
-
 area.innerHTML=`<div class="guide-card">
 <h3>🎯 ${exercise[0]}</h3>
 <div class="muted">Guia de execução MEENDES FITNESS</div>
 <div class="guide-time">${String(guideData.remaining).padStart(2,"0")}s</div>
 <div class="guide-progress"><div style="width:${elapsed/20*100}%"></div></div>
-<div class="guide-step">${phases[phase]}</div>
+<div class="guide-step">${phases[phase]||"Guia concluído."}</div>
 <p class="guide-tip"><b>Dica técnica:</b> ${exercise[2]}</p>
-${guideData.remaining===0?
-'<p style="color:#86efac;font-weight:800">✓ Guia concluído!</p>':
-'<p class="muted">Acompanhe as etapas e mantenha a técnica correta.</p>'}
+${guideData.remaining===0?'<p style="color:#86efac;font-weight:800">✓ Guia concluído!</p>':'<p class="muted">Acompanhe as etapas e mantenha a técnica correta.</p>'}
 <button class="secondary" id="closeGuide">Fechar guia</button>
 </div>`;
-
 $("closeGuide").onclick=()=>{
 stopGuide();
 renderGuide();
@@ -355,6 +363,12 @@ $("latestWeight").textContent=last.weight+" kg";
 $("history").innerHTML=[...arr].reverse().map(x=>
 `<div class="item"><span>${x.date}</span><b>${x.weight} kg</b></div>`
 ).join("");
+}
+function renderLiftHistory(){
+let entries=Object.entries(state.lifts||{}).filter(([k,v])=>v.load||v.reps);
+$("liftHistory").innerHTML=entries.length?entries.map(([key,v])=>
+`<div class="item"><span>${key.replace("|"," · ")}</span><b>${v.load||"—"} kg / ${v.reps||"—"} reps</b></div>`
+).join(""):'<p class="muted">Nenhuma carga ou repetição registrada ainda.</p>';
 }
 
 document.querySelectorAll(".tabs button").forEach(b=>{
@@ -378,31 +392,31 @@ $("weightInput").value="";
 renderHistory();
 };
 
-let remaining=90;
+let remaining=0;
 let interval=null;
+let selectedDuration=0;
 
 function showTimer(){
 $("timerDisplay").textContent=
 String(Math.floor(remaining/60)).padStart(2,"0")+":"+
 String(remaining%60).padStart(2,"0");
 }
-
 function stopTimer(){
 if(interval){
 clearInterval(interval);
 interval=null;
 }
 }
-
 document.querySelectorAll("[data-seconds]").forEach(b=>{
 b.onclick=()=>{
 stopTimer();
-remaining=Number(b.dataset.seconds);
+selectedDuration=Number(b.dataset.seconds);
+remaining=selectedDuration;
 $("timerStart").textContent="Iniciar";
+$("timerMessage").textContent="Intervalo selecionado: "+selectedDuration+" segundos.";
 showTimer();
 };
 });
-
 $("timerStart").onclick=()=>{
 if(interval){
 stopTimer();
@@ -410,32 +424,47 @@ $("timerStart").textContent="Continuar";
 return;
 }
 if(remaining<=0){
-$("timerStart").textContent="Iniciar";
+if(selectedDuration<=0){
+$("timerMessage").textContent="Primeiro escolha 60, 90 ou 120 segundos.";
 return;
 }
+remaining=selectedDuration;
+}
 $("timerStart").textContent="Pausar";
+$("timerMessage").textContent="Descanso em andamento.";
 interval=setInterval(()=>{
 if(remaining>0)remaining--;
 showTimer();
 if(remaining<=0){
 stopTimer();
 $("timerStart").textContent="Iniciar";
+$("timerMessage").textContent="Descanso concluído! 💪";
 if(navigator.vibrate)navigator.vibrate([200,100,200]);
 }
 },1000);
 };
-
 $("timerReset").onclick=()=>{
 stopTimer();
 remaining=0;
+selectedDuration=0;
 showTimer();
 $("timerStart").textContent="Iniciar";
+$("timerMessage").textContent="Timer zerado. Escolha um intervalo.";
 };
+
+function updateClock(){
+const now=new Date();
+$("clockTime").textContent=now.toLocaleTimeString("pt-BR");
+$("clockDate").textContent=now.toLocaleDateString("pt-BR",{weekday:"long",day:"2-digit",month:"long",year:"numeric"});
+}
 
 renderWeek();
 renderWorkout();
 renderHistory();
+renderLiftHistory();
 showTimer();
+updateClock();
+setInterval(updateClock,1000);
 
 if("serviceWorker" in navigator && location.protocol.startsWith("http")){
 window.addEventListener("load",()=>{
